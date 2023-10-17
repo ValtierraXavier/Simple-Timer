@@ -1,66 +1,74 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 
 function App() {
-  const [isRunning, setIsRunning] = useState(null)
-  const [seconds, setSeconds] = useState(0)
-  const [minutes, setMinutes] = useState(0)
-  const [hours, setHours] = useState(0)
-  let sec = 0;
-  let min = 0;
-  let hr = 0;
-  let interval;
+  let  
+        sec = 0,
+        min = 0,
+        hr = 0;
+  const [isRunning, setIsRunning] = useState(false)
+  const [seconds, setSeconds] = useState(sec)
+  const [minutes, setMinutes] = useState(min)
+  const [hours, setHours] = useState(hr)
+  const [period, setPeriod] = useState();
   
-  const selectionSpeed = (ms) => {
-      return new Promise(
-      resolve => {setTimeout(()=>{resolve()}, ms)}
-    )
+  
+
+    
+    //function to count down time
+    const tickTock = () => {
+      //increment seconds by 1 display and format page title
+        sec++; 
+        setSeconds(prev => prev = sec < 10 ? '0' + sec: sec) 
+        //reset seconds to 0 when they reach 59 and increment minute by 1 
+        if(sec >= 59){
+          sec = 0;
+          min++;
+          //reset minutes to 0 when they are 59 increment hour by 1
+          setMinutes(prev => prev = min < 10 ? "0" + min: min);
+          if(min >= 59){
+            min = 0;
+            hr++;
+            setHours(prev => prev = hr < 10 ? "0" + hr: hr);
+          }                    
+        }
+        document.title = (`${min < 10 ? "0" + min : min}: ${sec < 10 ? "0" + sec : sec}`)
     }
-    const startTimer = async() => {
-      setIsRunning(prev => prev = true)
-      interval =(()=>{setSeconds(prev => prev = sec++)}, 1000)
-            
+  //function to start timer. 
+    const startTimer = () => {
+      sec = seconds
+      min = minutes
+      hr = hours
+      setPeriod(setInterval(tickTock, 1000));
+    }
+//function to pause timer/resume
+    const pauseTimer = () => {
+        clearInterval(period);
+    }
+
+    const resetTimer = () => {
+        clearInterval(period);
+        sec = 0; 
+        min = 0;
+        hr = 0;
+        setMinutes(prev => prev = min);
+        setSeconds(prev => prev = sec);
+        setHours(prev => prev = hr);
     }
   
-  // const startTimer = async () => {
-  //   setIsRunning(prev => prev = true)
-  //   try{      
-  //     for(let i = 0; i <= 60; i++){
-  //         setSeconds(prev => prev = i)
-  //         if(i === 60){
-  //           i = 0;
-  //           min += 1;
-  //           setMinutes(prev => prev = min);
-  //           if(min === 60){
-  //             min = 0;
-  //             hr += 1;
-  //             setHours(prev => prev = hr)
-  //           }
-  //           if(isRunning == false){}
-  //           }
-        
-  //       await selectionSpeed(1000);
-  //     }    
-  //   }catch(error){console.log(error.message)}
-  // }
-  
-  const pause = () => {
-    setIsRunning(prev => prev = false)
-  }
-  console.log(isRunning)
   return (
     <div className="App">
       {/* stopwatch div */}
       <section className='stopWatch'>
         <div className='stopWatchDisplay'>          
-          <div className='timeDisplay' id ='hours'>{hours < 10?`0${hours}`:hours}</div>:
-          <div className='timeDisplay' id ='minutes'>{minutes < 10?`0${minutes}`:minutes}</div>:
-          <div className='timeDisplay' id ='seconds'>{seconds < 10?`0${seconds}`:seconds}</div>
+          <div className='timeDisplay' id ='hours'>{hours == 0 ? '00' : hours}</div>:
+          <div className='timeDisplay' id ='minutes'>{minutes == 0 ? '00' : minutes}</div>:
+          <div className='timeDisplay' id ='seconds'>{seconds ==  0 ? '00' : seconds}</div>
         </div>
         <div className='stopWatchButtons'>
           <button className='stopWatchButton' id='startButton' onClick={startTimer}>Start</button>
-          <button className='stopWatchButton' id='pauseButton' onClick={pause}>Pause</button>
-          <button className='stopWatchButton' id='resetButton'>Reset</button>
+          <button className='stopWatchButton' id='pauseButton' onClick={pauseTimer}>Pause</button>
+          <button className='stopWatchButton' id='resetButton' onClick={resetTimer}>Reset</button>
         </div>
       </section>
         
