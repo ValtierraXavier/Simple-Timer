@@ -1,38 +1,40 @@
-.App {
-  text-align: center;
+.stopWatch{
+  width: 100dvw;
+  height:100dvh;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.stopWatchDisplay{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  height: 50%;
+  width: 100%;
+  font-size: 4rem;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.timeDisplay{
+  display: flex;
+  flex-flow:row nowrap;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.stopWatchButton{
+  display: flex;
+  flex-flow:row nowrap;
+  position: relative;
+  width: 30%;
+  height: 50%;
+  border-radius: 10px;
+  border: solid black 3px;
+  font-size: 4rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.stopWatchButtons{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  height: 50%;
+  width: 100%;
 }
