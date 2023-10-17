@@ -1,2 +1,0 @@
-# Simple-Timer
-Simple timer.
