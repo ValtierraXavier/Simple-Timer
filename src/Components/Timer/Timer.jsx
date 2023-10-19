@@ -10,30 +10,34 @@ export default function Timer () {
     const[seconds, setSeconds] = useState(0)
     const[minutes, setMinutes] = useState(0)
     const doneArr =['Timer', 'Done!!']
-
+    
     const doneTiming =(ms) => {
         return new Promise(
             resolve=>{setTimeout(()=>{resolve()},ms
-        )})
-    }
-
-    const startTimer = ()=>{
-        resetTimer();
-        setAdjustTime(prev => prev = false) 
-        const totalSeconds = duration * 60;
-        // const diff = 0
-        sec = 0
-        min = duration
-        setMinutes(prev => prev = min)
+            )})
+        }
+        
+        const startTimer = ()=>{
+            // resetTimer();
+            setAdjustTime(prev => prev = false) 
+            const totalSeconds = duration * 60;
+            sec = Math.round((duration % 1) * 60)
+            min = Math.floor(duration - (duration % 1))
+            if(min < 1 && min > 0){
+                min = 0
+                sec = Math.round(totalSeconds)
+            }
+            setMinutes(prev => prev = min)
         setSeconds(prev => prev = sec)
         setTimerInterval(setInterval(countDown, 1000))
+        return
     } 
-
+    
     const done = () => {  
         clearInterval(timerInterval)
         setAdjustTime(prev => prev = true)
     }
-
+    
     const countDown = () => {
         if(sec <= 0 && min <= 0){
             resetTimer();
@@ -72,17 +76,15 @@ export default function Timer () {
             if(sec == 0 && min == 0){
                 resetTimer()
                 return
-            }
-           
+            } 
         } 
         if(sec == 0 && min == 0){
             resetTimer()
             return
         }       
     }
-
+    
     const resetTimer = () => {
-        console.log('clear')
         clearInterval(timerInterval);
         sec = 0;
         min = 0;
@@ -90,6 +92,7 @@ export default function Timer () {
         setDuration(prev => prev = min);
         setAdjustTime(prev => prev = true);
         document.title = 'Simple Timer';
+        return
     }
 
     return(
@@ -97,18 +100,19 @@ export default function Timer () {
             {/* <div className='timerLabel'>minutes</div> */}
             {adjustTime?
                 <div className ='timeDiv' id='adjustable' >
-                    <label className = "timeLabel" id = "minuteslabel">minutes</label>
                     <input type = "number" className = 'countDown'onChange={(e)=>setDuration(prev => prev =e.target.value)} value = {duration}></input>
+                    <label className = "timeLabel" id = "minuteslabel">minutes</label>
                 </div>
                 :
                 <div className ='timeDiv' id='nonAdjustable'>
-                    <div className = 'minutesDiv'>
+                    <div className = 'unitDiv' id = 'minutesDiv'>
+                        <div className = 'minutesCountDown'>{minutes < 10 ?'0' + minutes : minutes}</div>
                         <label className = 'timeLabel' id = 'minuteslabel' >minutes</label>
-                        <div className = 'minutesCountDown'>{minutes}</div>
                     </div>
-                    <div className = 'secondsDiv'>
+                    <div className="unitDiv" id = 'colonDiv'>:</div>
+                    <div className = 'unitDiv' id = 'secondsDiv'>
+                        <div className = 'secondsCountDown'>{seconds < 10 ? '0' + seconds : seconds}</div>
                         <label className = 'timeLabel' id = 'secondslabel' >seconds</label>
-                        <div className = 'secondsCountDown'>{seconds}</div>
                     </div>
                 </div>
             }

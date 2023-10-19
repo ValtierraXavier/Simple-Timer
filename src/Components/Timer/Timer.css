@@ -33,6 +33,12 @@
     width: 40%;
 }
 
+.unitDiv{
+    display: flex;
+    position: relative;
+    flex-flow: column nowrap;
+}
+
 .secondsCountDown{
     text-align: center;
 }
