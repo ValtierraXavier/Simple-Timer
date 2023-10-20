@@ -71,7 +71,7 @@ export default function Timer ({timerInt}) {
             setSeconds(prev => prev = sec)
             
         } 
-        document.title = `${min < 10 ? '0' + min : min} : ${sec < 10 ? '0' + sec : sec}`   
+        document.title = `Timer: (${min < 10 ? '0' + min : min}m : ${sec < 10 ? '0' + sec : sec}s)`   
     };
 
     return(

@@ -1,0 +1,23 @@
+.Header{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 5dvh;
+    background-color: rgba(100,100,100,1);
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.navTitleDiv{
+    position: relative;
+    width: 15%;
+}
+
+.appButtonDiv{
+    display: flex;
+    position: relative;
+    right: 42.5%;
+    justify-content: space-around;
+    width: 15%;
+}

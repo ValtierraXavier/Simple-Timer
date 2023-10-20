@@ -28,7 +28,7 @@ let
             setHours(prev => prev = hr < 10 ? "0" + hr: hr);
           }                    
         }
-        document.title = (`${min < 10 ? "0" + min : min}: ${sec < 10 ? "0" + sec : sec}`)
+        document.title = (`Stopwatch: (${min < 10 ? "0" + min : min}m : ${sec < 10 ? "0" + sec : sec}s)`)
       }
       //function to start timer. 
       const startTimer = () => {
@@ -51,7 +51,7 @@ let
         setMinutes(prev => prev = min);
         setSeconds(prev => prev = sec);
         setHours(prev => prev = hr);
-        document.title = 'SimpleTimer'
+        document.title = 'Simple Timer'
       }
       
   return (
