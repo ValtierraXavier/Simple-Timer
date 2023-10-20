@@ -1,22 +1,14 @@
 import React,{useRef, useState} from "react";
 import './Timer.css'
 
-export default function Timer () {
+export default function Timer ({timerInt}) {
     let sec;
     let min = 0;
     const[isRunning, setIsRunning] = useState(false);
     const[adjustTime ,setAdjustTime] = useState(true);
-    const timerInt = useRef(null)
     const[duration, setDuration] = useState(0);
     const[seconds, setSeconds] = useState(0);
     const[minutes, setMinutes] = useState(0);
-    const doneArr =['Timer', 'Done!!'];
-    
-    // const doneTiming =(ms) => {
-    //     return new Promise(
-    //         resolve=>{setTimeout(()=>{resolve()},ms
-    //         )})
-    //     };
         
     const startTimer = ()=>{
         setAdjustTime(prev => prev = false) 
@@ -39,7 +31,7 @@ export default function Timer () {
         setAdjustTime(prev => prev = true);
         setSeconds( prev => prev = 0);
         setDuration(prev => prev = 0);
-        setTimeout(()=>{document.title = 'Simple Timer'}, 100);
+        setTimeout(()=>{document.title = 'Simple Timer'}, 50);
     };
 
     const pauseTimer = () => {
