@@ -12,6 +12,7 @@
 .navTitleDiv{
     position: relative;
     width: 15%;
+    color: white;
 }
 
 .appButtonDiv{
@@ -20,4 +21,16 @@
     right: 42.5%;
     justify-content: space-around;
     width: 15%;
+}
+
+.appButton{
+    border: solid grey;
+    border-radius: 5px;
+    padding: 3px;
+    transition: .2s ease-in-out;
+    box-sizing: border-box;
+    font-size: medium;
+}
+.appButton:hover{
+    border: solid white;
 }
