@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import './StopWatch.css'
 
 export default function StopWatch () {
@@ -10,7 +10,7 @@ let
   const [seconds, setSeconds] = useState(sec)
   const [minutes, setMinutes] = useState(min)
   const [hours, setHours] = useState(hr)
-  const [period, setPeriod] = useState();
+  const period = useRef(null);
   
   //function to count down time
   const tickTock = () => {
@@ -36,17 +36,17 @@ let
         sec = seconds
         min = minutes
         hr = hours
-        setPeriod(setInterval(()=>{
+        period.current = (setInterval(()=>{
           console.log( 'int')
           tickTock()}, 1000));
       }
       //function to pause timer/resume
       const pauseTimer = () => {
-        clearInterval(period);
+        clearInterval(period.current);
       }
       
       const resetStopwatch = () => {
-        clearInterval(period);
+        clearInterval(period.current);
         sec = 0; 
         min = 0;
         hr = 0;
