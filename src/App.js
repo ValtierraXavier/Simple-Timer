@@ -4,7 +4,7 @@ import StopWatch from './Components/StopWatch/StopWatch.jsx';
 import Timer from './Components/Timer/Timer.jsx'
 
 function App() {
-  const [applet, setApplet] = useState('StopWatch')
+  const [applet, setApplet] = useState('Timer')
   
   const openApp = (e) =>{
     setApplet(prev => prev = e.target.name)

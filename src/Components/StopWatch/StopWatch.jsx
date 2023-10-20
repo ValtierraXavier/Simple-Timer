@@ -36,7 +36,9 @@ let
         sec = seconds
         min = minutes
         hr = hours
-        setPeriod(setInterval(tickTock, 1000));
+        setPeriod(setInterval(()=>{
+          console.log( 'int')
+          tickTock()}, 1000));
       }
       //function to pause timer/resume
       const pauseTimer = () => {

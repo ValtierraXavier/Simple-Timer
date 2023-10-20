@@ -1,57 +1,65 @@
-import React,{useState} from "react";
+import React,{useRef, useState} from "react";
 import './Timer.css'
 
 export default function Timer () {
-    let sec, secs;
+    let sec;
     let min = 0;
-    const[adjustTime ,setAdjustTime] = useState(true)
-    const[duration, setDuration] = useState(0)
-    const[timerInterval, setTimerInterval] = useState(null)
-    const[seconds, setSeconds] = useState(0)
-    const[minutes, setMinutes] = useState(0)
-    const doneArr =['Timer', 'Done!!']
+    const[isRunning, setIsRunning] = useState(false);
+    const[adjustTime ,setAdjustTime] = useState(true);
+    const timerInt = useRef(null)
+    const[duration, setDuration] = useState(0);
+    const[seconds, setSeconds] = useState(0);
+    const[minutes, setMinutes] = useState(0);
+    const doneArr =['Timer', 'Done!!'];
     
-    const doneTiming =(ms) => {
-        return new Promise(
-            resolve=>{setTimeout(()=>{resolve()},ms
-            )})
-        }
+    // const doneTiming =(ms) => {
+    //     return new Promise(
+    //         resolve=>{setTimeout(()=>{resolve()},ms
+    //         )})
+    //     };
         
-        const startTimer = ()=>{
-            // resetTimer();
-            setAdjustTime(prev => prev = false) 
-            const totalSeconds = duration * 60;
-            sec = Math.round((duration % 1) * 60)
-            min = Math.floor(duration - (duration % 1))
-            if(min < 1 && min > 0){
-                min = 0
-                sec = Math.round(totalSeconds)
-            }
-            setMinutes(prev => prev = min)
+    const startTimer = ()=>{
+        setAdjustTime(prev => prev = false) 
+        setIsRunning(prev => prev = true)
+        const totalSeconds = duration * 60;
+        sec = Math.round((duration % 1) * 60)
+        min = Math.floor(duration - (duration % 1))
+        if(min < 1 && min > 0){
+            min = 0
+            sec = Math.round(totalSeconds)
+        }
         setSeconds(prev => prev = sec)
-        setTimerInterval(setInterval(countDown, 1000))
-        return
-    } 
+        setMinutes(prev => prev = min)
+            timerInt.current = setInterval(countDown, 1000)
+    };
     
-    const done = () => {  
-        clearInterval(timerInterval)
-        setAdjustTime(prev => prev = true)
+    const resetTimer = () => {
+        clearInterval(timerInt.current);
+        setIsRunning(prev => prev = false)
+        setAdjustTime(prev => prev = true);
+        setSeconds( prev => prev = 0);
+        setDuration(prev => prev = 0);
+        setTimeout(()=>{document.title = 'Simple Timer'}, 100);
+    };
+
+    const pauseTimer = () => {
+        if(isRunning  === true){            
+            clearInterval(timerInt.current)
+            setIsRunning(prev => prev = false)
+            document.title = 'Timer Paused'
+            setDuration(prev => prev = (minutes + (seconds / 60)))
+        }else {return}
     }
-    
+
     const countDown = () => {
         if(sec <= 0 && min <= 0){
             resetTimer();
-            return
         }else if( sec <= 0 && min > 0 ){
             min--
             setMinutes(prev => prev = min)
             if(sec == 0){
                 sec = 60
                 setSeconds(prev => prev = sec)
-            }
-            if(sec == 0 && min == 0){
-                resetTimer()
-                return
             }
         } 
         if(sec > 0 && min >= 0){
@@ -62,38 +70,17 @@ export default function Timer () {
                 setMinutes(prev => prev = min)
             }
             sec--
-            setSeconds(prev => prev = sec)
-            if(sec == 0 && min == 0){
-                resetTimer()
-                return
-            }
+            setSeconds(prev => prev = sec)   
         } 
         if(sec > 0 && min < 1 && min > 0){
             min = 0 ;
             setMinutes(prev => prev = min)
             sec--
             setSeconds(prev => prev = sec)
-            if(sec == 0 && min == 0){
-                resetTimer()
-                return
-            } 
+            
         } 
-        if(sec == 0 && min == 0){
-            resetTimer()
-            return
-        }       
-    }
-    
-    const resetTimer = () => {
-        clearInterval(timerInterval);
-        sec = 0;
-        min = 0;
-        setSeconds( prev => prev = sec);
-        setDuration(prev => prev = min);
-        setAdjustTime(prev => prev = true);
-        document.title = 'Simple Timer';
-        return
-    }
+        document.title = `${min < 10 ? '0' + min : min} : ${sec < 10 ? '0' + sec : sec}`   
+    };
 
     return(
         <div className="Timer">
@@ -118,7 +105,8 @@ export default function Timer () {
             }
             
             <section className="actionButtons">
-                <button className="timerActionButtons" id = 'timerStartButton' onClick = {startTimer}>Start</button>
+                <button className="timerActionButtons" id = 'timerStartButton' disabled = {isRunning === true}  onClick = {startTimer}>Start</button>
+                <button className="timerActionButtons" id = 'timerpauseButton' disabled = {isRunning === false} onClick = {pauseTimer}>Pause</button>
                 <button className="timerActionButtons" id = 'timerResetButton' onClick = {resetTimer}>Reset</button>
             </section>
         </div>
