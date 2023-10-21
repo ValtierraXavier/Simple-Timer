@@ -24,13 +24,9 @@
 }
 
 .appButton{
-    border: solid grey;
     border-radius: 5px;
     padding: 3px;
     transition: .2s ease-in-out;
     box-sizing: border-box;
     font-size: medium;
-}
-.appButton:hover{
-    border: solid white;
 }

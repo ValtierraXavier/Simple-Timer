@@ -8,11 +8,14 @@
     align-items: center
 }
 
-#adjustable{
+#adjustable.timeDiv{
     display: flex;
     flex-flow: column nowrap;
     position: relative;
     align-items: center;
+    height: 50%;
+    width: 40%;
+    margin-top: -5%;
 }
 
 /* .timeDiv1{
@@ -62,23 +65,28 @@
     font-size: 10rem;
     width: 50%;
     text-align: center;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    outline: none;
 }
 .actionButtons{
     display: flex;
     flex-flow: row nowrap;
-    position: relative;
     justify-content: space-around;
-    align-items: center;
-    height: 10%;
-    width: 20%;
+    height: 25%;
+    width: 100%;
 }
 .timerActionButtons{
-    height: 3rem;
-    width: 6rem;
+    display: flex;
+    flex-flow:row nowrap;
+    position: relative;
+    width: 30%;
+    height: 100;
     border-radius: 10px;
-    border: solid grey;
-    font-size: 2rem;
-    transition: .1s ease-in-out;
+    border: solid black 3px;
+    font-size: 4rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .timerActionButtons:hover{

@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import './App.css';
 import Header from './Components/Header/Header.jsx';
 import StopWatch from './Components/StopWatch/StopWatch.jsx';
 import Timer from './Components/Timer/Timer.jsx'
 
 function App() {
-  const [which, setWhich] = useState('Stopwatch')
+  const [which, setWhich] = useState('Timer')
   const period = useRef(null)
   const timerInt = useRef(null)
   
